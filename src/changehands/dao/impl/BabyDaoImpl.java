@@ -29,7 +29,6 @@ public class BabyDaoImpl implements BabyDao {
 					Class.forName("com.mysql.jdbc.Driver");
 					connection=DriverManager.getConnection(dburl,dbuname,dbupwd);
 				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				//创建连接
@@ -39,9 +38,9 @@ public class BabyDaoImpl implements BabyDao {
 	public BabyBean BabySelect(int bID) {
 		// TODO Auto-generated method stub
 		String uSql="select * from Baby where bID=?";
-		BabyBean babyBean = new BabyBean();
+		BabyBean babyBean = new BabyBean();//耦合高 代码复用程度低 用spring框架 利用java放射机制 可在这一步解耦合
 		try {
-			PreparedStatement pStatement=this.connection.prepareStatement(uSql);
+			PreparedStatement pStatement=this.connection.prepareStatement(uSql);//可以防sql注入
 			pStatement.setInt(1,bID);
 			pStatement.execute();
 			ResultSet rSet=pStatement.executeQuery();//返回结果集
